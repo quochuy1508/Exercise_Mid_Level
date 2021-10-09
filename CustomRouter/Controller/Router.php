@@ -38,16 +38,15 @@ class Router implements RouterInterface
         try {
             $pathInfo = $request->getPathInfo();
             if ($pathInfo) {
-                $arrayPath = explode('/', $pathInfo);
-                $priceWithNamePath = str_replace('.html', '', end($arrayPath));
-                $priceWithName = explode('-', $priceWithNamePath);
-                if ($priceWithName[count($priceWithName)-3] == 'price') {
-                    $priceOne = $priceWithName[count($priceWithName)-2];
-                    $priceTwo = $priceWithName[count($priceWithName)-1];
-                    $paramRemove = '-price-' . $priceOne . '-' . $priceTwo;
-                    $path = str_replace($paramRemove, '', $pathInfo);
-
-                    $request->setPathInfo('' . $path)->setParam('price', $priceOne . '-' . $priceTwo);
+                $patternOnlyPriceNumber = '/\d+(\.\d{1,2})?-\d+(\.\d{1,2})?/';
+                $patternPrice = '/-price-\d+(\.\d{1,2})?-\d+(\.\d{1,2})?/';
+                if (
+                    preg_match($patternOnlyPriceNumber, $pathInfo, $matchOnlyPrice) &&
+                    preg_match($patternPrice, $pathInfo, $matchAllParam)
+                ) {
+                    $filterPrice = $matchOnlyPrice[0];
+                    $pathNotParams = preg_replace($patternPrice, '', $pathInfo);
+                    $request->setPathInfo('' . $pathNotParams)->setParam('price', $filterPrice);
                     return $this->actionFactory->create(
                         Forward::class
                     );

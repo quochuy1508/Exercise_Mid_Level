@@ -13,11 +13,15 @@ class ChangeUrlFilterPrice
      */
     public function afterGetUrl(Item $subject, $result)
     {
-        $urlString = $result;
-        $urlArrays = explode('?', $urlString);
-        if (str_contains(end($urlArrays), 'price')) {
-            $addParam = str_replace('=', '-', end($urlArrays));
-            return substr_replace($urlArrays[0], '-'.$addParam, strlen($urlArrays[0]) - 5, 0);
+        $pathInfo = $result;
+        $patternOnlyPriceNumber = '/\d+(\.\d{1,2})?-\d+(\.\d{1,2})?/';
+        $patternPrice = '/\?price=\d+(\.\d{1,2})?-\d+(\.\d{1,2})?/';
+        if (
+            preg_match($patternOnlyPriceNumber, $pathInfo, $matchOnlyPrice) &&
+            preg_match($patternPrice, $pathInfo, $matchAllParam)
+        ) {
+            $pathNotParams = preg_replace($patternPrice, '', $pathInfo);
+            return substr_replace($pathNotParams, '-price-'.$matchOnlyPrice[0], strlen($pathNotParams) - 5, 0);
         } else {
             return $result;
         }
