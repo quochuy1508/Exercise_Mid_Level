@@ -4,14 +4,8 @@ namespace Magenest\LayoutHandling\Plugin\Controller\Product;
 
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Framework\App\Action\Action;
-use Magento\Framework\Controller\Result\Forward;
-use Magento\Framework\Controller\Result\ForwardFactory;
-use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\DataObject;
-use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\View\Result\Page;
-use Magento\Framework\App\RequestInterface;
 use Magento\Framework\View\Result\Page as ResultPage;
 
 class View
@@ -23,7 +17,7 @@ class View
      *
      * @var ProductRepositoryInterface
      */
-    protected ProductRepositoryInterface $productRepository;
+    protected $productRepository;
 
     public function __construct(
         ProductRepositoryInterface $productRepository
