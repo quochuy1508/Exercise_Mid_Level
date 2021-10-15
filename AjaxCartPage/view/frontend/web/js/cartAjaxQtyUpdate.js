@@ -1,8 +1,9 @@
 define([
     'jquery',
     'Magento_Checkout/js/action/get-totals',
-    'Magento_Customer/js/customer-data'
-], function ($, getTotalsAction, customerData) {
+    'Magento_Customer/js/customer-data',
+    'mage/dataPost'
+], function ($, getTotalsAction, customerData, dataPost) {
 
     $(document).ready(function(){
         function ajaxSubmitForm() {
@@ -36,13 +37,21 @@ define([
             ajaxSubmitForm();
         });
 
-        $(document).on('click', '.action.action-delete', function(e) {
+        $(document).on('click', 'button[type=submit]', function(e) {
             e.preventDefault();
-            var removeButton = $('.action.action-delete').attr('data-post');
+            ajaxSubmitForm();
+        });
+
+        $(document).on('click', '.action.action-delete', function(e) {
+            e.preventDefault()
+            e.stopPropagation()
+            var removeButton = $('.action.action-delete').attr('data-post-delete');
+            var formKey = $('input[name="form_key"]').val();
             var dataPost = JSON.parse(removeButton);
             $.ajax({
                 url: dataPost.action,
-                data: JSON.stringify(dataPost.data),
+                method: 'POST',
+                data: jQuery.param({id: dataPost.data.id, form_key: formKey}),
                 showLoader: true,
                 success: function (res) {
                     var parsedResponse = $.parseHTML(res);
