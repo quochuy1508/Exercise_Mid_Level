@@ -11,6 +11,7 @@ use Magento\ConfigurableProduct\Block\Product\View\Type\Configurable as Subject;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\InventorySales\Model\ResourceModel\GetAssignedStockIdForWebsite;
 use Magento\InventorySalesApi\Api\GetProductSalableQtyInterface;
+use Magento\Store\Model\StoreManagerInterface;
 
 /**
  * Class for adding info about qty of product
@@ -33,18 +34,26 @@ class AddAdditionalInfo
     private $getAssignedStockIdForWebsite;
 
     /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
+
+    /**
      * @param Json $jsonSerializer
      * @param GetAssignedStockIdForWebsite $getAssignedStockIdForWebsite
      * @param GetProductSalableQtyInterface $getProductSalableQty
+     * @param StoreManagerInterface $storeManager
      */
     public function __construct(
         Json $jsonSerializer,
         GetAssignedStockIdForWebsite $getAssignedStockIdForWebsite,
-        GetProductSalableQtyInterface $getProductSalableQty
+        GetProductSalableQtyInterface $getProductSalableQty,
+        StoreManagerInterface $storeManager
     ) {
         $this->jsonSerializer = $jsonSerializer;
         $this->getAssignedStockIdForWebsite = $getAssignedStockIdForWebsite;
         $this->getProductSalableQty = $getProductSalableQty;
+        $this->storeManager = $storeManager;
     }
 
     /**
@@ -57,7 +66,7 @@ class AddAdditionalInfo
     public function afterGetJsonConfig(Subject $configurable, string $result): string
     {
         $jsonConfig = $this->jsonSerializer->unserialize($result);
-        $stockId = $this->getAssignedStockIdForWebsite->execute($jsonConfig['salesChannelCode']);
+        $stockId = $this->getAssignedStockIdForWebsite->execute($this->storeManager->getWebsite()->getCode());
         $jsonConfig['qty'] = $this->getProductVariationsQty($configurable, $stockId);
 
         return $this->jsonSerializer->serialize($jsonConfig);

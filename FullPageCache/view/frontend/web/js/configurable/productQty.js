@@ -4,9 +4,10 @@
  */
 define([
     'jquery',
+    'underscore',
     'productSalableQty',
     'jquery-ui-modules/widget'
-], function ($, productSalableQty) {
+], function ($, _, productSalableQty) {
     'use strict';
 
     return function (SwatchRenderer) {
@@ -17,8 +18,19 @@ define([
                 var productVariationsSku = this.options.jsonConfig.qty;
 
                 this._super($this, widget);
-                productSalableQty(productVariationsSku[widget.getProductId()]);
-            }
+                productSalableQty(productVariationsSku[this.getProductId()]);
+            },
+
+            /**
+             * Get chosen product id
+             *
+             * @returns int|null
+             */
+            getProductId: function () {
+                var products = this._CalcProducts();
+
+                return _.isArray(products) && products.length === 1 ? products[0] : null;
+            },
         });
 
         return $.mage.SwatchRenderer;
