@@ -2,13 +2,16 @@
 
 namespace Magenest\BookingSchedule\Api\Data;
 
+/**
+ * Interface BookingScheduleTimeInterface Data
+ */
 interface BookingScheduleTimeInterface
 {
     /**#@+
      * Constants for keys of data array. Identical to the name of the getter in snake case
      */
-    const ENTITY_ID      = 'entity_id';
-    const TIME    = 'time';
+    const ENTITY_ID = 'entity_id';
+    const TIME = 'time';
     /**#@-*/
 
     /**
@@ -21,7 +24,8 @@ interface BookingScheduleTimeInterface
     /**
      * Set ID
      *
-     * @return BookingScheduleDayInterface
+     * @param int $entityId
+     * @return BookingScheduleTimeInterface
      */
     public function setEntityId($entityId);
 
@@ -35,7 +39,8 @@ interface BookingScheduleTimeInterface
     /**
      * Set Time
      *
-     * @return BookingScheduleDayInterface
+     * @param string $time
+     * @return BookingScheduleTimeInterface
      */
     public function setTime($time);
 }

@@ -1,0 +1,49 @@
+.grid-container {
+    display: grid; /* This is a (hacky) way to make the .grid element size to fit its content */
+    overflow: auto;
+    height: 600px;
+    width: 90%;
+    text-align: center;
+}
+.grid {
+    display: flex;
+    flex-wrap: nowrap;
+}
+.grid-col {
+    width: 150px;
+    min-width: 150px;
+}
+
+.grid-item--header {
+    height: 10%;
+    min-height: 100px;
+    position: sticky;
+    position: -webkit-sticky;
+    background: white;
+    top: 0;
+}
+
+.grid-col--fixed-left {
+    position: sticky;
+    left: 0;
+    z-index: 9998;
+    background: white;
+}
+
+.grid-col--fixed-right {
+    position: sticky;
+    right: 0;
+    z-index: 9998;
+    background: white;
+}
+
+.grid-item {
+    height: 80px;
+    border: 1px solid gray;
+}
+
+.grid-item-fixed-right {
+    height: 80px;
+    width: 50px;
+    border: 1px solid gray;
+}

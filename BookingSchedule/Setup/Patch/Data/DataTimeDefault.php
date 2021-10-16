@@ -10,6 +10,7 @@ namespace Magenest\BookingSchedule\Setup\Patch\Data;
 
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
+use Magento\Framework\Stdlib\DateTime\DateTime;
 
 /**
  * Data Time Booking Schedule Default
@@ -24,14 +25,22 @@ class DataTimeDefault implements DataPatchInterface
     private $moduleDataSetup;
 
     /**
+     * @var DateTime
+     */
+    private $dateTime;
+
+    /**
      * AddProductAttribute constructor.
      *
-     * @param ModuleDataSetupInterface  $moduleDataSetup
+     * @param ModuleDataSetupInterface $moduleDataSetup
      */
     public function __construct(
-        ModuleDataSetupInterface $moduleDataSetup
-    ) {
+        ModuleDataSetupInterface $moduleDataSetup,
+        DateTime                 $dateTime
+    )
+    {
         $this->moduleDataSetup = $moduleDataSetup;
+        $this->dateTime = $dateTime;
     }
 
     /**
@@ -42,13 +51,47 @@ class DataTimeDefault implements DataPatchInterface
         $this->moduleDataSetup->startSetup();
         $setup = $this->moduleDataSetup;
 
-        $dataTime = ['6:30', '7:00', '7:30', '8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00',
-            '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00'];
+        $dataTimes = ['06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00',
+            '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30',
+            '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00'];
 
         $setup->getConnection()->insertArray(
             $setup->getTable('booking_schedule_time'),
             ['time'],
-            $dataTime
+            $dataTimes
+        );
+
+        $dataDays = [];
+        $currentDate = $this->dateTime->date('Y-m-d h:i:s');
+        $monday = date('Y-m-d h:i:s', strtotime('monday this week', strtotime($currentDate)));
+
+        foreach (range(0, 7) as $number) {
+            $dataDays[] = $this->dateTime->gmtDate('Y-m-d H:i:s', strtotime('+' . $number . ' day', strtotime($monday)));
+        }
+
+        $setup->getConnection()->insertArray(
+            $setup->getTable('booking_schedule_day'),
+            ['day'],
+            $dataDays
+        );
+
+        $dataSlot = [];
+        foreach ($dataTimes as $timeKey => $timeValue) {
+            foreach ($dataDays as $dayKey => $dayValue) {
+                $dataSlot[] = [
+                    'day_id' => $dayKey + 1,
+                    'time_id' => $timeKey + 1,
+                    'stock' => 10,
+                    'reservation' => 0,
+                    'used' => 0
+                ];
+            }
+        };
+
+        $setup->getConnection()->insertArray(
+            $setup->getTable('booking_schedule_slot'),
+            ['day_id', 'time_id', 'stock', 'reservation', 'used'],
+            $dataSlot
         );
 
         $this->moduleDataSetup->endSetup();

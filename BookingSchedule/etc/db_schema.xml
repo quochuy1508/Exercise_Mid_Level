@@ -14,7 +14,7 @@
     <table name="booking_schedule_day" resource="default" engine="innodb" comment="Booking Schedule Day">
         <column xsi:type="int" name="entity_id" unsigned="false" nullable="false" identity="true"
                 comment="Entity ID"/>
-        <column xsi:type="varchar" name="day" nullable="false" length="255" comment="Day Of Booking Schedule"/>
+        <column xsi:type="timestamp" name="day" on_update="false" nullable="false" comment="Day Of Booking Schedule"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="entity_id"/>
         </constraint>

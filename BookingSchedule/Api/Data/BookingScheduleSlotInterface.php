@@ -2,17 +2,20 @@
 
 namespace Magenest\BookingSchedule\Api\Data;
 
+/**
+ * Interface BookingScheduleSlotInterface Data
+ */
 interface BookingScheduleSlotInterface
 {
     /**#@+
      * Constants for keys of data array. Identical to the name of the getter in snake case
      */
-    const ENTITY_ID      = 'entity_id';
-    const DAY_ID    = 'day_id';
-    const TIME_ID    = 'time_id';
-    const STOCK    = 'stock';
-    const RESERVATION    = 'reservation';
-    const USED    = 'used';
+    const ENTITY_ID = 'entity_id';
+    const DAY_ID = 'day_id';
+    const TIME_ID = 'time_id';
+    const STOCK = 'stock';
+    const RESERVATION = 'reservation';
+    const USED = 'used';
     /**#@-*/
 
     /**
@@ -24,8 +27,8 @@ interface BookingScheduleSlotInterface
 
     /**
      * Set ID
-     *
-     * @return BookingScheduleDayInterface
+     * @param int $entityId
+     * @return BookingScheduleSlotInterface
      */
     public function setEntityId($entityId);
 
@@ -39,49 +42,68 @@ interface BookingScheduleSlotInterface
     /**
      * Set day id
      *
-     * @return BookingScheduleDayInterface
+     * @param int $dayId
+     * @return BookingScheduleSlotInterface
      */
     public function setDayId($dayId);
 
     /**
-     * Get day id
+     * Get time id
      *
      * @return int
      */
     public function getTimeId();
 
     /**
-     * Set day id
+     * Set time id
      *
-     * @return BookingScheduleDayInterface
+     * @param int $timeId
+     * @return BookingScheduleSlotInterface
      */
     public function setTimeId($timeId);
 
     /**
-     * Get day id
+     * Get Stock
      *
      * @return int
      */
     public function getStock();
 
     /**
-     * Set day id
+     * Set Stock
      *
-     * @return BookingScheduleDayInterface
+     * @param int $stock
+     * @return BookingScheduleSlotInterface
      */
-    public function setStock($reservation);
+    public function setStock($stock);
 
     /**
-     * Get day id
+     * Get reservation
      *
      * @return int
      */
     public function getReservation();
 
     /**
-     * Set day id
+     * Set reservation
      *
-     * @return BookingScheduleDayInterface
+     * @param int $reservation
+     * @return BookingScheduleSlotInterface
      */
     public function setReservation($reservation);
+
+    /**
+     * Get used
+     *
+     * @return int
+     */
+    public function getUsed();
+
+    /**
+     * Set used
+     *
+     * @param int $used
+     * @return BookingScheduleSlotInterface
+     */
+    public function setUsed($used);
 }
