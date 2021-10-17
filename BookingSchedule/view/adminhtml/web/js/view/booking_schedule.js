@@ -4,20 +4,16 @@ define([
     'ko'
     ], function ($, Component, ko) {
         'use strict';
+
         return Component.extend({
             defaults: {
                 template: 'Magenest_BookingSchedule/form/booking_schedule'
             },
-            initialize: function () {
-                this.customerName = ko.observableArray([]);
-                this.customerData = ko.observable('');
+            initialize: function (config) {
+                this.headers = ko.observableArray(config.bookingScheduleHeader);
+                this.slot = ko.observableArray(config.bookingScheduleData);
                 this._super();
             },
-
-            addNewCustomer: function () {
-                this.customerName.push({name:this.customerData()});
-                this.customerData('');
-            }
         });
     }
 );

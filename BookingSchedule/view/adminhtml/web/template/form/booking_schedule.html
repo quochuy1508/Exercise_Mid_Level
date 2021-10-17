@@ -1,21 +1,85 @@
-<div class="component-wrapper">
-    <div class="field">
-        <label class="label" for="email"><span data-bind="i18n: 'New Customer'"></span></label>
-        <div class="control">
-            <input name="customername"
-                   id="customername"
-                   type="text"
-                   class="input-text"
-                   data-bind="value: customerData">
+<div class="page-main-actions">
+    <div class="page-actions-placeholder"></div>
+    <div class="page-actions" data-ui-id="page-actions-toolbar-content-header">
+        <div class="page-actions-inner" data-title="Orders">
+            <div class="page-actions-buttons">
+                <button id="copy" type="button" class="action- scalable primary">
+                    <span>Copy To Next Week</span>
+                </button>
+                <button id="add" type="button" class="action- scalable primary">
+                    <span>Save</span>
+                </button>
+            </div>
         </div>
     </div>
-    <div class="primary">
-        <button type="button" class="action action-login secondary" data-bind="click: addNewCustomer">
-            <span data-bind="i18n: 'Save'"></span>
-        </button>
-    </div>
-
-    <div class="customer-list" style="width: 20%;background: gray;margin-top: 10px;" data-bind="foreach: customerName">
-        <li data-bind="text: name"></li>
-    </div>
 </div>
+
+<table class="table-scroll small-first-col">
+    <thead>
+    <tr data-bind="foreach: headers">
+        <th data-bind="text: name"></th>
+    </tr>
+    </thead>
+    <tbody class="body-half-screen">
+    <!-- ko foreach: slot -->
+    <tr>
+        <td data-bind="text: time"></td>
+        <td>
+            <p><strong data-bind="text: Monday.reservation"></strong> reservation</p>
+            <p><strong data-bind="text: Monday.used"></strong> used</p>
+            <p>
+                <input style="width: 30px" type="text" class="input-text" data-bind="value: Monday.stock"> stock
+            </p>
+        </td>
+
+        <td>
+            <p><strong data-bind="text: Tuesday.reservation"></strong> reservation</p>
+            <p><strong data-bind="text: Tuesday.used"></strong> used</p>
+            <p>
+                <input style="width: 30px" type="text" class="input-text" data-bind="value: Tuesday.stock"> stock
+            </p>
+        </td>
+
+        <td>
+            <p><strong data-bind="text: Wednesday.reservation"></strong> reservation</p>
+            <p><strong data-bind="text: Wednesday.used"></strong> used</p>
+            <p>
+                <input style="width: 30px" type="text" class="input-text" data-bind="value: Wednesday.stock"> stock
+            </p>
+        </td>
+
+        <td>
+            <p><strong data-bind="text: Thursday.reservation"></strong> reservation</p>
+            <p><strong data-bind="text: Thursday.used"></strong> used</p>
+            <p>
+                <input style="width: 30px" type="text" class="input-text" data-bind="value: Thursday.stock"> stock
+            </p>
+        </td>
+
+        <td>
+            <p><strong data-bind="text: Friday.reservation"></strong> reservation</p>
+            <p><strong data-bind="text: Friday.used"></strong> used</p>
+            <p>
+                <input style="width: 30px" type="text" class="input-text" data-bind="value: Friday.stock"> stock
+            </p>
+        </td>
+
+        <td>
+            <p><strong data-bind="text: Saturday.reservation"></strong> reservation</p>
+            <p><strong data-bind="text: Saturday.used"></strong> used</p>
+            <p>
+                <input style="width: 30px" type="text" class="input-text" data-bind="value: Saturday.stock"> stock
+            </p>
+        </td>
+
+        <td>
+            <p><strong data-bind="text: Sunday.reservation"></strong> reservation</p>
+            <p><strong data-bind="text: Sunday.used"></strong> used</p>
+            <p>
+                <input style="width: 30px" type="text" class="input-text" data-bind="value: Sunday.stock"> stock
+            </p>
+        </td>
+    </tr>
+    <!-- /ko -->
+    </tbody>
+</table>

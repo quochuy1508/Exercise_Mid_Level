@@ -1,49 +1,60 @@
-.grid-container {
-    display: grid; /* This is a (hacky) way to make the .grid element size to fit its content */
-    overflow: auto;
-    height: 600px;
-    width: 90%;
-    text-align: center;
+.container{
+    padding: 1rem;
+    margin: 1rem;
 }
-.grid {
-    display: flex;
-    flex-wrap: nowrap;
-}
-.grid-col {
-    width: 150px;
-    min-width: 150px;
+.table-scroll{
+    /*width:100%; */
+    display: block;
+    empty-cells: show;
+
+    /* Decoration */
+    border-spacing: 0;
+    border: 1px solid;
 }
 
-.grid-item--header {
-    height: 10%;
-    min-height: 100px;
-    position: sticky;
-    position: -webkit-sticky;
-    background: white;
-    top: 0;
+.table-scroll thead{
+    background-color: #f1f1f1;
+    position:relative;
+    display: block;
+    width:100%;
+    overflow-y: scroll;
 }
 
-.grid-col--fixed-left {
-    position: sticky;
-    left: 0;
-    z-index: 9998;
-    background: white;
+.table-scroll tbody{
+    /* Position */
+    display: block; position:relative;
+    width:100%; overflow-y:scroll;
+    /* Decoration */
+    border-top: 1px solid rgba(0,0,0,0.2);
 }
 
-.grid-col--fixed-right {
-    position: sticky;
-    right: 0;
-    z-index: 9998;
-    background: white;
+.table-scroll tr{
+    width: 100%;
+    display:flex;
 }
 
-.grid-item {
-    height: 80px;
-    border: 1px solid gray;
+.table-scroll td,.table-scroll th{
+    flex-basis:100%;
+    flex-grow:2;
+    display: block;
+    padding: 1rem;
+    text-align:left;
 }
 
-.grid-item-fixed-right {
-    height: 80px;
-    width: 50px;
-    border: 1px solid gray;
+/* Other options */
+
+.table-scroll.small-first-col td:first-child,
+.table-scroll.small-first-col th:first-child{
+    flex-basis:40%;
+    flex-grow:1;
 }
+
+.table-scroll tbody tr:nth-child(2n){
+    background-color: rgba(130,130,170,0.1);
+}
+
+.body-half-screen{
+    max-height: 60vh;
+}
+
+.small-col{flex-basis:10%;}

@@ -4,56 +4,22 @@
 use Magenest\BookingSchedule\Block\Adminhtml\BookingSchedule;
 
 ?>
-<div class="grid-container" id="booking-schedule-component" data-bind="scope:'bookingSchedule'">
+
+<div id="booking-schedule" class="container" data-bind="scope:'bookingSchedule'">
     <!-- ko template: getTemplate() --><!-- /ko -->
     <script type="text/x-magento-init">
         {
-            "#booking-schedule-component": {
+            "#booking-schedule": {
                 "Magento_Ui/js/core/app": {
                    "components": {
                         "bookingSchedule": {
-                            "component": "Magenest_BookingSchedule/js/view/booking_schedule"
+                            "component": "Magenest_BookingSchedule/js/view/booking_schedule",
+                            "bookingScheduleHeader": <?= /* @escapeNotVerified */ $block->getBookingScheduleHeaderString() ?>,
+                            "bookingScheduleData": <?= /* @escapeNotVerified */ $block->getBookingScheduleSlotString() ?>
                         }
                     }
                 }
             }
         }
     </script>
-
-    <div class="grid">
-        <div class="grid-col grid-col--fixed-left">
-            <div class="grid-item grid-item--header">
-                <p> < > </p>
-            </div>
-            <?php foreach ($block->getBookingScheduleTime() as $item) :?>
-                <div class="grid-item" data-ui-id="time <?= $block->escapeHtml($item['entity_id']) ?>">
-                    <p><?= $block->escapeHtml($item['time']) ?></p>
-                </div>
-            <?php endforeach; ?>
-        </div>
-
-        <?php foreach ($block->getBookingScheduleData() as $dayKey => $timeColumns) :?>
-            <div class="grid-col">
-                <div class="grid-item grid-item--header">
-                    <p><?= $dayKey ?></p>
-                </div>
-                <?php foreach ($timeColumns as $timeData) :?>
-                    <div class="grid-item" data-ui-id="entity <?= $block->escapeHtml($timeData['entity_id']) ?>">
-                        <p>reservation <?= $timeData['reservation'] ?></p>
-                        <p>used <?= $timeData['used'] ?></p>
-                        <hr/>
-                        <input type="number" />
-                        <p>stock <?= $timeData['stock'] ?></p>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        <?php endforeach; ?>
-        <div class="grid-col grid-col--fixed-right">
-            <div class="grid-item-fixed-right grid-item--header">
-                <p> > </p>
-            </div>
-        </div>
-
-    </div>
-    </div>
 </div>
