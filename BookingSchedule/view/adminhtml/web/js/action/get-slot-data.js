@@ -17,8 +17,10 @@ define(
         'use strict';
         return function (weekNumberFromNow) {
             'use strict';
+            var url = urlBuilder.build("/admin/booking_schedule/slot/index?id=" + weekNumberFromNow);
+            console.log(url);
             return storage.get(
-                'booking_schedule/slot/index?id=' + weekNumberFromNow,
+                url,
                 false
             ).done(
                 function (response) {
