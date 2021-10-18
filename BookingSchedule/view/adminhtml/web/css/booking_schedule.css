@@ -58,3 +58,10 @@
 }
 
 .small-col{flex-basis:10%;}
+
+.button-week {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+}

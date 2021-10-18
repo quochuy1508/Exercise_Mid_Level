@@ -6,7 +6,7 @@
                 <button id="copy" type="button" class="action- scalable primary">
                     <span>Copy To Next Week</span>
                 </button>
-                <button id="add" type="button" class="action- scalable primary">
+                <button id="add" type="button" class="action- scalable primary" data-bind="click: save">
                     <span>Save</span>
                 </button>
             </div>
@@ -14,6 +14,10 @@
     </div>
 </div>
 
+<div class="button-week">
+    <button id="previous-week" data-bind="click: getDataByWeek.bind(this, '-1')">< Previous Week</button>
+    <button id="next-week" data-bind="click: getDataByWeek.bind(this, '1')">Next Week ></button>
+</div>
 <table class="table-scroll small-first-col">
     <thead>
     <tr data-bind="foreach: headers">
@@ -24,6 +28,7 @@
     <!-- ko foreach: slot -->
     <tr>
         <td data-bind="text: time"></td>
+        <!-- ko if: $data.Monday -->
         <td>
             <p><strong data-bind="text: Monday.reservation"></strong> reservation</p>
             <p><strong data-bind="text: Monday.used"></strong> used</p>
@@ -31,7 +36,8 @@
                 <input style="width: 30px" type="text" class="input-text" data-bind="value: Monday.stock"> stock
             </p>
         </td>
-
+        <!-- /ko -->
+        <!-- ko if: $data.Tuesday-->
         <td>
             <p><strong data-bind="text: Tuesday.reservation"></strong> reservation</p>
             <p><strong data-bind="text: Tuesday.used"></strong> used</p>
@@ -39,7 +45,8 @@
                 <input style="width: 30px" type="text" class="input-text" data-bind="value: Tuesday.stock"> stock
             </p>
         </td>
-
+        <!-- /ko -->
+        <!-- ko if: $data.Wednesday -->
         <td>
             <p><strong data-bind="text: Wednesday.reservation"></strong> reservation</p>
             <p><strong data-bind="text: Wednesday.used"></strong> used</p>
@@ -47,7 +54,8 @@
                 <input style="width: 30px" type="text" class="input-text" data-bind="value: Wednesday.stock"> stock
             </p>
         </td>
-
+        <!-- /ko -->
+        <!-- ko if: $data.Thursday -->
         <td>
             <p><strong data-bind="text: Thursday.reservation"></strong> reservation</p>
             <p><strong data-bind="text: Thursday.used"></strong> used</p>
@@ -55,7 +63,8 @@
                 <input style="width: 30px" type="text" class="input-text" data-bind="value: Thursday.stock"> stock
             </p>
         </td>
-
+        <!-- /ko -->
+        <!-- ko if: $data.Friday -->
         <td>
             <p><strong data-bind="text: Friday.reservation"></strong> reservation</p>
             <p><strong data-bind="text: Friday.used"></strong> used</p>
@@ -63,7 +72,8 @@
                 <input style="width: 30px" type="text" class="input-text" data-bind="value: Friday.stock"> stock
             </p>
         </td>
-
+        <!-- /ko -->
+        <!-- ko if: $data.Saturday -->
         <td>
             <p><strong data-bind="text: Saturday.reservation"></strong> reservation</p>
             <p><strong data-bind="text: Saturday.used"></strong> used</p>
@@ -71,7 +81,8 @@
                 <input style="width: 30px" type="text" class="input-text" data-bind="value: Saturday.stock"> stock
             </p>
         </td>
-
+        <!-- /ko -->
+        <!-- ko if: $data.Sunday -->
         <td>
             <p><strong data-bind="text: Sunday.reservation"></strong> reservation</p>
             <p><strong data-bind="text: Sunday.used"></strong> used</p>
@@ -79,6 +90,7 @@
                 <input style="width: 30px" type="text" class="input-text" data-bind="value: Sunday.stock"> stock
             </p>
         </td>
+        <!-- /ko -->
     </tr>
     <!-- /ko -->
     </tbody>
