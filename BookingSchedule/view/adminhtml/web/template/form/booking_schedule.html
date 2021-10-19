@@ -3,8 +3,8 @@
     <div class="page-actions" data-ui-id="page-actions-toolbar-content-header">
         <div class="page-actions-inner" data-title="Orders">
             <div class="page-actions-buttons">
-                <button id="copy" type="button" class="action- scalable primary">
-                    <span>Copy To Next Week</span>
+                <button id="open-modal" type="button" class="action- scalable primary" data-bind="click: openModal">
+                    <span>Copy Week Assignment</span>
                 </button>
                 <button id="add" type="button" class="action- scalable primary" data-bind="click: save">
                     <span>Save</span>
@@ -14,9 +14,11 @@
     </div>
 </div>
 
+<div id="popup-modal" style="display:none;"><p>Hello World</p></div>
+
 <div class="button-week">
-    <button id="previous-week" data-bind="click: getDataByWeek.bind(this, '-1')">< Previous Week</button>
-    <button id="next-week" data-bind="click: getDataByWeek.bind(this, '1')">Next Week ></button>
+    <button id="previous-week" data-bind="click: getDataByPreviousWeek">< Previous Week</button>
+    <button id="next-week" data-bind="click: getDataByNextWeek">Next Week ></button>
 </div>
 <table class="table-scroll small-first-col">
     <thead>

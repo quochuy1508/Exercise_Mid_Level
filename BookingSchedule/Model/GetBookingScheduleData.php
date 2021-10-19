@@ -42,7 +42,7 @@ class GetBookingScheduleData implements \Magenest\BookingSchedule\Api\GetBooking
     /**
      * @inheritDoc
      */
-    public function execute()
+    public function execute($weekNumber = 0)
     {
         /** @var SlotCollection $collection */
         $collection = $this->bookingScheduleSlotCollection->create();
@@ -51,8 +51,9 @@ class GetBookingScheduleData implements \Magenest\BookingSchedule\Api\GetBooking
         $dayCollection = $this->bookingScheduleDayCollection->create();
 
         $currentDate = $this->localeDate->date()->format("Y-m-d h:i:s");
-        $monday = date('Y-m-d', strtotime('monday this week', strtotime($currentDate)));
-        $sunday = date('Y-m-d', strtotime('monday next week', strtotime($currentDate)));
+        $dayOfWeekNumber = date('Y-m-d h:i:s', strtotime($weekNumber * 7 . ' days', strtotime($currentDate)));
+        $monday = date('Y-m-d', strtotime('monday this week', strtotime($dayOfWeekNumber)));
+        $sunday = date('Y-m-d', strtotime('monday next week', strtotime($dayOfWeekNumber)));
 
         $dayCollection->getSelect()->where(
             'main_table.day >= ?',

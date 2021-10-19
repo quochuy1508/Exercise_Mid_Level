@@ -9,7 +9,8 @@ interface GetBookingScheduleDataInterface
 {
     /**
      * Get Booking Schedule Data Interface for Form Block
+     * @param int $weekNumber
      * @return array
      */
-    public function execute();
+    public function execute($weekNumber = 0);
 }
