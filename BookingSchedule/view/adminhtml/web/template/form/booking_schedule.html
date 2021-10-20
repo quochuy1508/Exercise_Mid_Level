@@ -14,7 +14,9 @@
     </div>
 </div>
 
-<div id="popup-modal" style="display:none;"><p>Hello World</p></div>
+<div id="popup-modal" style="display:none;">
+    <input type="text" name="field" class="input-text" data-bind="value: numberOfWeekCopyToAssignment" style="width: 100%;" data-role="numberWeek" data-validate='{"required":true}' >
+</div>
 
 <div class="button-week">
     <button id="previous-week" data-bind="click: getDataByPreviousWeek">< Previous Week</button>

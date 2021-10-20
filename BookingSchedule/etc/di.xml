@@ -11,4 +11,5 @@
     <preference for="Magenest\BookingSchedule\Api\Data\BookingScheduleTimeInterface" type="Magenest\BookingSchedule\Model\BookingScheduleTime" />
     <preference for="Magenest\BookingSchedule\Api\GetBookingScheduleDataInterface" type="Magenest\BookingSchedule\Model\GetBookingScheduleData" />
     <preference for="Magenest\BookingSchedule\Api\GetBookingScheduleTimeInterface" type="Magenest\BookingSchedule\Model\GetBookingScheduleTime" />
+    <preference for="Magenest\BookingSchedule\Api\DuplicateBookingScheduleInterface" type="Magenest\BookingSchedule\Model\DuplicateBookingSchedule" />
 </config>

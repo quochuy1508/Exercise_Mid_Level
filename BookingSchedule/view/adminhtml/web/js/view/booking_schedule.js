@@ -3,8 +3,10 @@ define([
     'uiComponent',
     'ko',
     'Magenest_BookingSchedule/js/action/get-slot-data',
+    'Magenest_BookingSchedule/js/action/copy_assignment',
+    'Magenest_BookingSchedule/js/action/save_booking_schedule',
     'Magento_Ui/js/modal/modal'
-    ], function ($, Component, ko, getSlotDataByWeek, modal) {
+    ], function ($, Component, ko, getSlotDataByWeek, copyAssignment, saveBookingSchedule, modal) {
         'use strict';
         var currentWeek = 0;
 
@@ -16,6 +18,7 @@ define([
                 this._super();
                 this.headers = ko.observableArray(config.bookingScheduleHeader);
                 this.slot = ko.observableArray(config.bookingScheduleData);
+                this.numberOfWeekCopyToAssignment = ko.observable(1);
             },
 
             save: function () {
@@ -53,18 +56,39 @@ define([
             },
 
             openModal: function() {
+                let that = this;
                 var options = {
                     type: 'popup',
-                    responsive: true,
-                    innerScroll: true,
-                    title: 'popup modal title',
-                    buttons: [{
-                        text: $.mage.__('Continue'),
-                        class: '',
-                        click: function () {
-                            this.closeModal();
+                    title: 'Number of week want to copy assignment',
+                    focus: '[data-role="numberWeek"]',
+                    buttons: [
+                        {
+                            text: $.mage.__('Cancel'),
+                            class: '',
+                            click: function () {
+                                this.closeModal();
+                            }
+                        },
+                        {
+                            text: $.mage.__('Submit'),
+                            class: '',
+                            click: function () {
+                                let modalWhenClick = this;
+                                console.log(that.numberOfWeekCopyToAssignment());
+                                let res = copyAssignment(that.numberOfWeekCopyToAssignment())
+                                res.done(function (response, textStatus, jqXHR) {
+                                    modalWhenClick.closeModal();
+                                    return response;
+                                });
+                                //On failure of request this function will be called
+                                res.fail(function () {
+                                    //show error
+                                    alert("LOI NHE");
+                                    modalWhenClick.closeModal();
+                                });
+                            }
                         }
-                    }]
+                    ]
                 };
 
                 var popup = modal(options, $('#popup-modal'));
