@@ -10,7 +10,7 @@ interface DuplicateBookingScheduleInterface
     /**
      * Get Booking Schedule Time Interface for Form Block
      * @param int $number
-     * @return array
+     * @return bool
      */
     public function execute($number);
 }
