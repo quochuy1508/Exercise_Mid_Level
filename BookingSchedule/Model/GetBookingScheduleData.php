@@ -98,7 +98,8 @@ class GetBookingScheduleData implements \Magenest\BookingSchedule\Api\GetBooking
                 $result[$keyExists][$nameDayOfWeek] = [
                     'stock' => $item['stock'],
                     'reservation' => $item['reservation'],
-                    'used' => $item['used']
+                    'used' => $item['used'],
+                    'entity_id' => $item['entity_id']
                 ];
             } else {
                 $result[] = [
@@ -106,7 +107,8 @@ class GetBookingScheduleData implements \Magenest\BookingSchedule\Api\GetBooking
                     $nameDayOfWeek => [
                         'stock' => $item['stock'],
                         'reservation' => $item['reservation'],
-                        'used' => $item['used']
+                        'used' => $item['used'],
+                        'entity_id' => $item['entity_id']
                     ]
                 ];
             }

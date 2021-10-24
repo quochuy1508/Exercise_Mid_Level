@@ -59,7 +59,18 @@ class DuplicateBookingSchedule implements DuplicateBookingScheduleInterface
     {
         try {
             $currentDate = $this->dateTime->date('Y-m-d h:i:s');
+            $sunDayThisWeek = date('Y-m-d h:i:s', strtotime('sunday this week', strtotime($currentDate)));
             $mondayNextWeek = date('Y-m-d h:i:s', strtotime('monday next week', strtotime($currentDate)));
+
+            /** @var BookingScheduleDay $dayModel */
+            $sunDayThisWeekModel = $this->bookingScheduleDayFactory->create();
+            $this->dayResourceModel->load($sunDayThisWeekModel, $sunDayThisWeek, 'day');
+
+            $connection = $this->slotResourceModel->getConnection();
+            $connection->delete(
+                $connection->getTableName('booking_schedule_day'),
+                ['entity_id > ?' => $sunDayThisWeekModel->getEntityId()]
+            );
 
             $dayIdNews = [];
             foreach (range(0, $number * 7 - 1) as $i) {
@@ -70,6 +81,11 @@ class DuplicateBookingSchedule implements DuplicateBookingScheduleInterface
                 $this->dayResourceModel->save($dayModel);
                 $dayIdNews[] = $dayModel->getId();
             }
+
+            $connection->delete(
+                $connection->getTableName('booking_schedule_slot'),
+                ['day_id > ?' => $sunDayThisWeekModel->getEntityId()]
+            );
 
             foreach (DataTimeDefault::DATA_TIMES as $timeKey => $timeValue) {
                 foreach ($dayIdNews as $dayId) {
@@ -82,7 +98,7 @@ class DuplicateBookingSchedule implements DuplicateBookingScheduleInterface
                     $slotModel->setUsed(0);
                     $this->slotResourceModel->save($slotModel);
                 }
-            };
+            }
             return true;
         } catch (\Exception $exception) {
             return false;

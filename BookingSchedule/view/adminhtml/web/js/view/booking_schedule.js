@@ -9,7 +9,7 @@ define([
     ], function ($, Component, ko, getSlotDataByWeek, copyAssignment, saveBookingSchedule, modal) {
         'use strict';
         var currentWeek = 0;
-
+        var dataSlotChange = [];
         return Component.extend({
             defaults: {
                 template: 'Magenest_BookingSchedule/form/booking_schedule'
@@ -21,9 +21,44 @@ define([
                 this.numberOfWeekCopyToAssignment = ko.observable(1);
             },
 
+            renderedHandler: function (elements, data) {
+                return $('#body-table').children().length === 32 && $('#body-table tr:last-child').children().length === 8;
+
+            },
+
+            /**
+             * @param {Object} slot
+             */
+            onSlotChange: function (slot) {
+                if (this.renderedHandler()) {
+                    let idReplate = null;
+                    let duplicate = dataSlotChange.find((o, i) => {
+                        if (o.entity_id === slot.entity_id) {
+                            idReplate = i;
+                            return true;
+                        }
+                    });
+                    if (duplicate) {
+                        dataSlotChange[idReplate] = slot;
+                    } else {
+                        dataSlotChange.push(slot);
+                    }
+                }
+            },
+
             save: function () {
-                this.slot([]);
-                console.log("config.bookingScheduleData: ", this.slot());
+                let result = saveBookingSchedule(dataSlotChange);
+                //Show successfully for submit message
+                result.done(function (response, textStatus, jqXHR) {
+                    console.log(response)
+                    alert("Save Thanh cong");
+                });
+
+                //On failure of request this function will be called
+                result.fail(function () {
+                    //show error
+                    alert("LOI NHE");
+                });
             },
 
             getDataByPreviousWeek: function () {
@@ -42,8 +77,6 @@ define([
                 //Show successfully for submit message
                 result.done(function (response, textStatus, jqXHR) {
                     $('#loader').hide();
-                    console.log(response)
-                    console.log(textStatus)
                     that.slot(response.data);
                     that.headers(response.headerData);
                 });

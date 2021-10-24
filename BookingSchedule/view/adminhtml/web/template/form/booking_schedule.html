@@ -28,7 +28,7 @@
         <th data-bind="text: name"></th>
     </tr>
     </thead>
-    <tbody class="body-half-screen">
+    <tbody id="body-table" class="body-half-screen" data-bind="afterRender: renderedHandler">
     <!-- ko foreach: slot -->
     <tr>
         <td data-bind="text: time"></td>
@@ -37,7 +37,7 @@
             <p><strong data-bind="text: Monday.reservation"></strong> reservation</p>
             <p><strong data-bind="text: Monday.used"></strong> used</p>
             <p>
-                <input style="width: 30px" type="text" class="input-text" data-bind="value: Monday.stock"> stock
+                <input style="width: 40px" type="text" class="input-text" data-bind="value: Monday.stock, event: {change: $parent.onSlotChange($data.Monday)};"> stock
             </p>
         </td>
         <!-- /ko -->
@@ -46,7 +46,7 @@
             <p><strong data-bind="text: Tuesday.reservation"></strong> reservation</p>
             <p><strong data-bind="text: Tuesday.used"></strong> used</p>
             <p>
-                <input style="width: 30px" type="text" class="input-text" data-bind="value: Tuesday.stock"> stock
+                <input style="width: 40px" type="text" class="input-text" data-bind="value: Tuesday.stock, event: {change: $parent.onSlotChange($data.Tuesday)};"> stock
             </p>
         </td>
         <!-- /ko -->
@@ -55,7 +55,7 @@
             <p><strong data-bind="text: Wednesday.reservation"></strong> reservation</p>
             <p><strong data-bind="text: Wednesday.used"></strong> used</p>
             <p>
-                <input style="width: 30px" type="text" class="input-text" data-bind="value: Wednesday.stock"> stock
+                <input style="width: 40px" type="text" class="input-text" data-bind="value: Wednesday.stock, event: {change: $parent.onSlotChange($data.Wednesday)};"> stock
             </p>
         </td>
         <!-- /ko -->
@@ -64,7 +64,7 @@
             <p><strong data-bind="text: Thursday.reservation"></strong> reservation</p>
             <p><strong data-bind="text: Thursday.used"></strong> used</p>
             <p>
-                <input style="width: 30px" type="text" class="input-text" data-bind="value: Thursday.stock"> stock
+                <input style="width: 40px" type="text" class="input-text" data-bind="value: Thursday.stock, event: {change: $parent.onSlotChange($data.Thursday)};"> stock
             </p>
         </td>
         <!-- /ko -->
@@ -73,7 +73,7 @@
             <p><strong data-bind="text: Friday.reservation"></strong> reservation</p>
             <p><strong data-bind="text: Friday.used"></strong> used</p>
             <p>
-                <input style="width: 30px" type="text" class="input-text" data-bind="value: Friday.stock"> stock
+                <input style="width: 40px" type="text" class="input-text" data-bind="value: Friday.stock, event: {change: $parent.onSlotChange($data.Friday)};"> stock
             </p>
         </td>
         <!-- /ko -->
@@ -82,7 +82,7 @@
             <p><strong data-bind="text: Saturday.reservation"></strong> reservation</p>
             <p><strong data-bind="text: Saturday.used"></strong> used</p>
             <p>
-                <input style="width: 30px" type="text" class="input-text" data-bind="value: Saturday.stock"> stock
+                <input style="width: 40px" type="text" class="input-text" data-bind="value: Saturday.stock, event: {change: $parent.onSlotChange($data.Saturday)};"> stock
             </p>
         </td>
         <!-- /ko -->
@@ -91,7 +91,7 @@
             <p><strong data-bind="text: Sunday.reservation"></strong> reservation</p>
             <p><strong data-bind="text: Sunday.used"></strong> used</p>
             <p>
-                <input style="width: 30px" type="text" class="input-text" data-bind="value: Sunday.stock"> stock
+                <input style="width: 40px" type="text" class="input-text" data-bind="value: Sunday.stock, event: {change: $parent.onSlotChange($data.Sunday)};"> stock
             </p>
         </td>
         <!-- /ko -->

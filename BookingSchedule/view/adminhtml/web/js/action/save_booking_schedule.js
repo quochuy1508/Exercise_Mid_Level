@@ -15,14 +15,14 @@ define(
         urlBuilder
     ) {
         'use strict';
-        return function (number) {
+        return function (arrayChange) {
             'use strict';
-            var url = urlBuilder.build("/admin/booking_schedule/slot/copyAssignment?isAjax=true&number=" + number);
+            var url = urlBuilder.build("/admin/booking_schedule/slot/save?isAjax=true");
             console.log(url);
             return $.ajax({
                 url: url,
                 method: 'POST',
-                data: {form_key: window.FORM_KEY},
+                data: {form_key: window.FORM_KEY, data: arrayChange},
                 showLoader: true,
                 beforeSend: function () {
                     $('#loader').show();
